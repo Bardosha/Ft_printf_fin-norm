@@ -35,7 +35,7 @@ This produces `libftprintf.a` at the root of the repository.
 ### Linking with project
 
 ```bash
-cc your_file.c -L. -lftprintf -o your_program
+cc *.c
 ```
 
 ### Makefile rules
