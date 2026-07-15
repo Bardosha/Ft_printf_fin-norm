@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: veres <veres@student.42.fr>                +#+  +:+       +#+        */
+/*   By: asaunina <asaunina@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/03 16:00:22 by asaunina          #+#    #+#             */
-/*   Updated: 2026/07/15 01:53:17 by veres            ###   ########.fr       */
+/*   Updated: 2026/07/15 17:29:26 by asaunina         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,25 @@ int	ft_putnbr(long n)
 {
 	int	len;
 	int	check;
-	
+
 	len = 0;
 	if (n < 0)
 	{
-		if ((check = ft_putchar('-')) == -1)
+		if (ft_putchar('-') == -1)
 			return (-1);
-		len += check;
+		len++;
 		n = -n;
 	}
 	if (n >= 10)
 	{
-		if ((check = ft_putnbr(n / 10)) == -1)
+		check = ft_putnbr(n / 10);
+		if (check == -1)
 			return (-1);
 		len += check;
 	}
-	if ((check = ft_putchar((n % 10) + '0')) == -1)
+	if (ft_putchar((n % 10) + '0') == -1)
 		return (-1);
-	return (len + check);
+	return (len + 1);
 }
 
 int	ft_putuns(unsigned int n)
@@ -44,13 +45,14 @@ int	ft_putuns(unsigned int n)
 	len = 0;
 	if (n >= 10)
 	{
-		if ((check = ft_putuns(n / 10)) == -1)
+		check = ft_putuns(n / 10);
+		if (check == -1)
 			return (-1);
 		len += check;
 	}
-	if ((check = ft_putchar((n % 10) + '0')) == -1)
+	if (ft_putchar((n % 10) + '0') == -1)
 		return (-1);
-	return (len + check);
+	return (len + 1);
 }
 
 int	ft_puthex(unsigned long n, int up)
@@ -66,13 +68,14 @@ int	ft_puthex(unsigned long n, int up)
 		base = "0123456789abcdef";
 	if (n >= 16)
 	{
-		if ((check = ft_puthex(n / 16, up)) == -1)
+		check = ft_puthex(n / 16, up);
+		if (check == -1)
 			return (-1);
 		len += check;
 	}
-	if ((check = ft_putchar(base[n % 16])) == -1)
+	if (ft_putchar(base[n % 16]) == -1)
 		return (-1);
-	return (len + check);
+	return (len + 1);
 }
 
 int	ft_putptr(void *ptr)
@@ -83,10 +86,12 @@ int	ft_putptr(void *ptr)
 	len = 0;
 	if (ptr == NULL)
 		return (ft_putstr("(nil)"));
-	if ((check = ft_putstr("0x")) == -1)
+	check = ft_putstr("0x");
+	if (check == -1)
 		return (-1);
 	len += check;
-	if ((check = ft_puthex((unsigned long)ptr, 0)) == -1)
+	check = ft_puthex((unsigned long)ptr, 0);
+	if (check == -1)
 		return (-1);
 	return (len + check);
 }
